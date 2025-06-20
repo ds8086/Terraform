@@ -1,0 +1,56 @@
+{
+    "schemaVersion": "3.54.0",
+    "${PROTOCOL}_${PORT}": {    
+        "class": "Application",
+        "vs_${PARTITION}_${PORT}": {
+            "class": "Service_HTTPS",
+            "virtualAddresses": [
+                "${VIP}"
+            ],
+            "virtualPort": ${PORT},
+            "pool": "pool_${PARTITION}_${PORT}",
+            "redirect80": false,
+            "serverTLS": [
+                {
+                    "use": "clientssl_${PARTITION}"
+                }
+            ],
+            "clientTLS": [
+                {
+                    "use": "serverssl_${PARTITION}"
+                }
+            ]
+        },
+        "pool_${PARTITION}_${PORT}": {
+            "class": "Pool",
+            "monitors": [
+                "${PROTOCOL}"
+            ],
+            "members": [
+                {
+                    "servicePort": ${PORT},
+                    "shareNodes": true,
+                    "servers": ${NODES}
+                }
+            ]
+        },
+        "clientssl_${PARTITION}": {
+            "class": "TLS_Server",
+            "certificates": [
+                {
+                    "certificate": "cert_${FQDN}"
+                }
+            ]
+        },
+        "serverssl_${PARTITION}": {
+            "class": "TLS_Client",
+            "clientCertificate": "cert_${FQDN}"
+        },
+        "cert_${FQDN}": {
+            "class": "Certificate",
+            "remark": "insert remark here",
+            "certificate": ${CERT},
+            "privateKey": ${KEY}
+        }
+    }
+}

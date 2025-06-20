@@ -14,7 +14,7 @@ crash.*.log
 # control as they are data points which are potentially sensitive and subject 
 # to change depending on the environment.
 
-# Included for demo purposes
+# Included for example
 # *.tfvars
 # *.tfvars.json
 
