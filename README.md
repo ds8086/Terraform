@@ -6,7 +6,7 @@ This is the sum of all my tinkering with F5 Big-IP configurations managed via Te
 #### as3_example
 A working example of applying an AS3 configuration via Terraform. Three different virtual server and pool configurations are created each of which uses the same two nodes for load balancing. Each configuration references the `f5-bigip\modules\as3` module and then utilizes different JSON templates depending on the configuration. JSON templates for GTM exist as file names prepended with `_gtm`. As mentioned in the intro, this is currently the only way to manage GTM via Terraform.
 
-I had found a really solid example online which I used for *my* example. If/when I find it again, I'll provide a link.
+My AS3 example is largely based upon the [medium-f5-terraform-vault repo by Maniak Academy](https://github.com/maniak-academy/medium-f5-terraform-vault).
 
 #### ltm_example
 A working example of managing LTM objects using the native Terraform provider *without* AS3. All modules *other* than the `f5-bigip\modules\as3` are referenced. The `nodes`, `cert`, and `irules` modules act as unique configurations since they can only be created once, but can be reused across multiple virtual server configurations, which means each of these modules produces output which is ingested by other modules.
