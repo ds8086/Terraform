@@ -1,0 +1,27 @@
+{
+    "schemaVersion": "3.54.0",
+    "${PROTOCOL}_${PORT}": {
+        "class": "Application",
+        "vs_${PARTITION}_${PORT}": {
+            "class": "Service_TCP",
+            "virtualAddresses": [
+                "${VIP}"
+            ],
+            "virtualPort": ${PORT},
+            "pool": "pool_${PARTITION}_${PORT}"
+        },
+        "pool_${PARTITION}_${PORT}": {
+            "class": "Pool",
+            "monitors": [
+                "${PROTOCOL}"
+            ],
+            "members": [
+                {
+                    "servicePort": ${PORT},
+                    "shareNodes": true,
+                    "servers": ${NODES}
+                }
+            ]
+        }
+    }
+}
